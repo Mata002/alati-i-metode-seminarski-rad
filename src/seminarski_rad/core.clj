@@ -1,15 +1,15 @@
 (ns seminarski-rad.core
+  (:require [clojure.edn :as edn])
   (:gen-class))
 
 ;; book validity threshold
 (def popular-threshold 0.5)
 (def academic-threshold 0.5)
 
-;; all books list
-(def books-list
-  [{:title "Knjiga 1"}
-   {:title "Knjiga 2"}
-   {:title "Knjiga 3"}])
+;; load file with books data
+(defn load-books
+  [path]
+  (edn/read-string (slurp path)))
 
 ;; input: none; output: search string from the user
 (defn input
@@ -56,7 +56,8 @@
 (defn -main
   [& args]
   (let [terms (input)
-        filtered (search terms books-list)
+        books (load-books "resources/books.edn")
+        filtered (search terms books)
         final (main-evaluation filtered)
         ranked (ranking final)]
     (output ranked)))
