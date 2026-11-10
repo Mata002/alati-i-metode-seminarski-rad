@@ -1,3 +1,37 @@
-[{:title "Book 1" :authors ["Author 1"] :year 2000 :avg-ratings {:goodreads 4.0}}
- {:title "Book 2" :authors ["Author 2" "Author 3"] :year 1990 :avg-ratings {:goodreads 4.2}}
- {:title "Book 3" :authors ["Author 3"] :year 2015} :avg-ratings {:goodreads 3.7}]
+;; SAMPLE DATA - not real books.
+[{:title "The French Revolution: A Scholarly History"
+  :authors ["A. Author"]
+  :year 2005
+  :description "Detailed academic study of the causes and course of the French Revolution."
+  :subjects ["France" "Revolution" "History"]
+  :avg-rating 4.1
+  :ratings-count 800
+  :publisher "Cambridge University Press"
+  :citations 450}
+ {:title "Citizens of the Revolution"
+  :authors ["B. Writer"]
+  :year 1989
+  :description "A readable narrative of the French Revolution for general readers."
+  :subjects ["France" "Revolution"]
+  :avg-rating 4.2
+  :ratings-count 5400
+  :publisher "Oxford University Press"
+  :citations 2100}
+ {:title "The Roman Republic"
+  :authors ["D. Historian"]
+  :year 2010
+  :description "How the Roman Republic rose and fell."
+  :subjects ["Rome" "Republic"]
+  :avg-rating 4.0
+  :ratings-count 1200
+  :publisher "Yale University Press"
+  :citations 900}
+ {:title "Revolution and Terror in France"
+  :authors ["E. Scholar"]
+  :year 2012
+  :description "The Terror and the French Revolution explained."
+  :subjects ["France" "Terror" "Revolution"]
+  :avg-rating 3.9
+  :ratings-count 150
+  :publisher "Harvard University Press"
+  :citations 60}]

@@ -1,10 +1,15 @@
 (ns seminarski-rad.core
-  (:require [clojure.edn :as edn])
+  (:require [clojure.edn :as edn]
+            [clojure.string :as str])
   (:gen-class))
 
 ;; book validity threshold
 (def popular-threshold 0.5)
 (def academic-threshold 0.5)
+
+;; default result-limit if the user does not type a number.
+(def default-result-limit
+  10)
 
 ;; load file with books data
 (defn load-books
@@ -14,12 +19,24 @@
 ;; input: none; output: search string from the user
 (defn input
   []
-  "francuska revolucija")
+  (print "Search: ") (flush) (read-line))
+
+(defn input-limit
+  []
+  (print "How many books to show? ") (flush)
+  (or (parse-long (str/trim (str (read-line)))) default-result-limit))
+
+;; True if the pattern is found in the title or description.
+(defn matches?
+  [pattern book]
+  (or (re-find pattern (str (:title book))) (re-find pattern (str (:description book)))))
 
 ;; input: search string, books list. output: filtered books list
+;; Returns books whose title or description contains the search string (not case-sensitive).
 (defn search
   [search-terms books]
-  books)
+  (let [pattern (re-pattern (str "(?i)" search-terms))]
+    (filter (partial matches? pattern) books)))
 
 ;; input: one book; output: popular score for that book
 (defn popular-evaluation
@@ -49,15 +66,16 @@
 
 ;; input: ranked-list; output: showing results to the user
 (defn output
-  [ranked-books]
-  (println ranked-books))
+  [ranked-books result-limit]
+  (println (take result-limit ranked-books)))
 
 ;; main function
 (defn -main
   [& args]
   (let [terms (input)
+        result-limit (input-limit)
         books (load-books "resources/books.edn")
         filtered (search terms books)
         final (main-evaluation filtered)
         ranked (ranking final)]
-    (output ranked)))
+    (output ranked result-limit)))
